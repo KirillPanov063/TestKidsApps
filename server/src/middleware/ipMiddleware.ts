@@ -10,7 +10,7 @@ declare global {
 
 export const getClientIp = (req: Request): string => {
   try {
-    // X-Forwarded-For header
+    
     const xForwardedFor = req.headers["x-forwarded-for"];
     if (xForwardedFor) {
       const ips = Array.isArray(xForwardedFor)
