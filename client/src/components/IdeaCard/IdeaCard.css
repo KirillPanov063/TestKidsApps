@@ -67,7 +67,6 @@
   font-size: 0.875rem;
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
   .idea-header {
     flex-direction: column;

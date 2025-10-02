@@ -11,7 +11,7 @@ const app = express();
 
 serverConfig(app);
 
-// Подключаем роуты
+
 app.use("/api/ideas", ideasRouter);
 app.use("/api/votes", votesRouter);
 

@@ -4,6 +4,7 @@ export interface ApiResponse<T = unknown> {
   error?: string;
   message?: string;
   timestamp: string;
+  statusCode?: number; 
 }
 
 export class FormatResponse {
@@ -16,11 +17,16 @@ export class FormatResponse {
     };
   }
 
-  static error(error: string, message?: string): ApiResponse<null> {
+  static error(
+    error: string,
+    statusCode: number,
+    message?: string
+  ): ApiResponse<null> {
     return {
       success: false,
       error,
       message,
+      statusCode, 
       timestamp: new Date().toISOString(),
     };
   }
@@ -42,6 +48,7 @@ export class FormatResponse {
       success: false,
       error: "Не найдено",
       message,
+      statusCode: 404, 
       timestamp: new Date().toISOString(),
     };
   }
@@ -51,6 +58,7 @@ export class FormatResponse {
       success: false,
       error: "Конфликт",
       message,
+      statusCode: 409, 
       timestamp: new Date().toISOString(),
     };
   }
@@ -60,6 +68,7 @@ export class FormatResponse {
       success: false,
       error: "Неверный запрос",
       message,
+      statusCode: 400, 
       timestamp: new Date().toISOString(),
     };
   }
@@ -71,6 +80,7 @@ export class FormatResponse {
       success: false,
       error: "Внутренняя ошибка",
       message,
+      statusCode: 500, 
       timestamp: new Date().toISOString(),
     };
   }

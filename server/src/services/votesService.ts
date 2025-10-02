@@ -1,4 +1,9 @@
 import { IVote, VoteResponse } from "../types";
+import {
+  IdeaNotFoundError,
+  AlreadyVotedError,
+  VoteLimitExceededError,
+} from "../errors/customErrors";
 
 const { Vote, Idea } = require("../../db/models");
 
@@ -24,7 +29,7 @@ export class VotesService {
     try {
       const idea: IdeaInstance | null = await Idea.findByPk(ideaId);
       if (!idea) {
-        throw new Error("Идея не найдена");
+        throw IdeaNotFoundError(ideaId); 
       }
 
       const existingVote: VoteInstance | null = await Vote.findOne({
@@ -35,7 +40,7 @@ export class VotesService {
       });
 
       if (existingVote) {
-        throw new Error("Вы уже голосовали за эту идею");
+        throw AlreadyVotedError(); 
       }
 
       const voteCount: number = await Vote.count({
@@ -43,9 +48,7 @@ export class VotesService {
       });
 
       if (voteCount >= 10) {
-        throw new Error(
-          "Лимит голосов превышен (максимум 10 голосов с одного IP)"
-        );
+        throw VoteLimitExceededError(); 
       }
 
       const vote: VoteInstance = await Vote.create({

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { VotesService } from "../services/votesService";
 import { VoteResponse } from "../types";
 import { FormatResponse } from "../utils/formatResponse";
+import { CustomError } from "../errors/customErrors";
 
 export class VotesController {
   static async createVote(req: Request, res: Response): Promise<void> {
@@ -9,7 +10,7 @@ export class VotesController {
       const { ideaId } = req.params;
 
       if (!ideaId) {
-        const response = FormatResponse.badRequest("ID идеи обязателен");
+        const response = FormatResponse.badRequest("ID  обязателен");
         res.status(400).json(response);
         return;
       }
@@ -18,7 +19,7 @@ export class VotesController {
       const ideaIdNum = parseInt(ideaId);
 
       if (isNaN(ideaIdNum)) {
-        const response = FormatResponse.badRequest("Неверный ID идеи");
+        const response = FormatResponse.badRequest("Неверный ID ");
         res.status(400).json(response);
         return;
       }
@@ -32,22 +33,18 @@ export class VotesController {
     } catch (error) {
       console.error("Ошибка в VotesController.createVote:", error);
 
+      
+      if (error instanceof CustomError) {
+        const response = FormatResponse.error(error.message, error.statusCode);
+        res.status(error.statusCode).json(response);
+        return;
+      }
+
       const errorMessage =
         error instanceof Error ? error.message : "Не удалось создать голос";
 
-      if (
-        error instanceof Error &&
-        (error.message === "Идея не найдена" ||
-          error.message === "Вы уже голосовали за эту идею" ||
-          error.message ===
-            "Лимит голосов превышен (максимум 10 голосов с одного IP)")
-      ) {
-        const response = FormatResponse.conflict(errorMessage);
-        res.status(409).json(response);
-      } else {
-        const response = FormatResponse.internalError(errorMessage);
-        res.status(500).json(response);
-      }
+      const response = FormatResponse.internalError(errorMessage);
+      res.status(500).json(response);
     }
   }
 
