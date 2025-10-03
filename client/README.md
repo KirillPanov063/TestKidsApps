@@ -44,3 +44,16 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+<!--env client 
+        PORT=5173
+        REACT_APP_API_BASE_URL=http://localhost:3000/api
+        REACT_APP_APP_NAME=Система голосования за идеи
+        REACT_APP_MAX_VOTES_PER_IP=10
+env server
+        DB_USER=postgres
+        DB_PASS=123
+        DB_NAME=testovoekids
+        DB_HOST=127.0.0.1
+        PORT=3000 
+        -->

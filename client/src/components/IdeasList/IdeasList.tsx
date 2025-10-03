@@ -2,7 +2,7 @@ import React from "react";
 import { IIdea } from "../../types";
 import { IdeaCard } from "../IdeaCard";
 import { LoadingSpinner, ErrorMessage } from "../common";
-import { APP_CONFIG } from "../../utils/constants";
+import { APP_CONFIG } from "../../constants/constants";
 import "./IdeasList.css";
 
 interface IdeasListProps {

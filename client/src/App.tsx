@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { IdeasList, ThemeToggle } from "./components";
 import { useIdeas, useVoting, useTheme } from "./hooks";
-import { APP_CONFIG } from "./utils/constants";
+import { APP_CONFIG } from "./constants/constants";
 import "./App.css";
 
 const App: React.FC = () => {

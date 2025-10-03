@@ -1,5 +1,5 @@
 import { ApiResponse } from "../types";
-import { APP_CONFIG } from "../utils/constants";
+import { APP_CONFIG } from "../constants/constants";
 
 
 class ApiError extends Error {
